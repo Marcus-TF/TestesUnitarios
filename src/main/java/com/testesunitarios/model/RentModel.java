@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Rent implements Serializable {
+public class RentModel implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate rentDate;
@@ -27,9 +26,9 @@ public class Rent implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
-    private User user;
+    private UserModel user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "movieId")
-    private Movie movie;
+    private MovieModel movieModel;
 }
