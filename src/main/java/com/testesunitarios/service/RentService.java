@@ -21,9 +21,8 @@ public class RentService {
         rentResponse.setUser(user);
         rentResponse.setMovieModel(movieModel);
 
-        var mockDate = LocalDate.of(2022, 12, 14);
-        rentResponse.setRentDate(mockDate);
-        rentResponse.setReturnDate(mockDate.plusDays(7));
+        rentResponse.setRentDate(LocalDate.now());
+        rentResponse.setReturnDate(LocalDate.now().plusDays(7));
         rentResponse.setValue(movieModel.getPrice());
 
         return rentResponse;

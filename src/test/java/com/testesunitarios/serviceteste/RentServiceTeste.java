@@ -27,7 +27,7 @@ public class RentServiceTeste {
         //verificacao
         try {
             Assert.assertTrue(Objects.equals(rentModelResponse.getRentDate(), LocalDate.now()));
-            System.out.println(rentModelResponse);
+            System.out.println("Test passed!\n" + rentModelResponse);
         } catch (AssertionError e) {
             throw new AssertionError("Data do aluguel nao coincide com a data atual!");
         }
