@@ -4,13 +4,9 @@ import com.testesunitarios.model.MovieModel;
 import com.testesunitarios.model.RentModel;
 import com.testesunitarios.model.UserModel;
 import lombok.AllArgsConstructor;
-import org.junit.Assert;
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
