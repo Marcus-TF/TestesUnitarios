@@ -19,9 +19,9 @@ public class RentService {
         rentResponse.setUser(user);
         rentResponse.setMovieModel(movieModel);
 
-        if (Objects.isNull(movieModel.getInventory()) || movieModel.getInventory() == 0){
-            throw new OutOfStockException("Filme sem estoque!");
-        }
+//        if (Objects.isNull(movieModel.getInventory()) || movieModel.getInventory() == 0){
+//            throw new OutOfStockException("Filme sem estoque!");
+//        }
 
         rentResponse.setRentDate(LocalDate.now());
         rentResponse.setReturnDate(LocalDate.now().plusDays(7));

@@ -108,4 +108,24 @@ public class RentServiceTeste {
             throw new AssertionError("Data do aluguel nao coincide com a data atual!");
         }
     }
+
+    @Test
+    public void testStockIsNull() {
+        //cenario
+        var rentServiceResponse = new RentService();
+        var userResponse = new UserModel("Marcus");
+        var movieResponse = new MovieModel("Us", 5, 90.00);
+
+        //acao
+        RentModel rentModelResponse = rentServiceResponse.rentMovie(userResponse, movieResponse);
+
+        //verificacao
+        try {
+            Integer value = 0;
+            Assert.assertNotEquals(movieResponse.getInventory(), value);
+            System.out.println("Test passed!\n" + rentModelResponse);
+        } catch (AssertionError e) {
+            throw new AssertionError("Filme sem estoque!");
+        }
+    }
 }
