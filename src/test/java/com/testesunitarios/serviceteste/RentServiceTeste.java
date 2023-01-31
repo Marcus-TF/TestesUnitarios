@@ -33,12 +33,25 @@ public class RentServiceTeste {
         //verificacao
         try {
             Assert.assertEquals(rentModelResponse.getRentDate(), LocalDate.now());
-            Assert.assertTrue(Objects.equals(rentModelResponse.getRentDate(), LocalDate.now()));
-            Assert.assertThat(rentModelResponse.getValue(), CoreMatchers.is(80.00));
             System.out.println("Test passed!\n" + rentModelResponse);
         } catch (AssertionError e) {
-            throw new AssertionError("Data do aluguel nao coincide com a data atual!");
+            throw new AssertionError("Assert Equals Error!");
         }
+
+        try {
+            Assert.assertTrue(Objects.equals(rentModelResponse.getRentDate(), LocalDate.now()));
+            System.out.println("Test passed!\n" + rentModelResponse);
+        } catch (AssertionError e) {
+            throw new AssertionError("Assert True Error!");
+        }
+
+        try {
+            Assert.assertThat(rentModelResponse.getValue(), CoreMatchers.is(90.00));
+            System.out.println("Test passed!\n" + rentModelResponse);
+        } catch (AssertionError e) {
+            throw new AssertionError("Assert That Error!");
+        }
+
     }
 
     @Test

@@ -1,0 +1,6 @@
+com\testesunitarios\exception\OutOfStockException.class
+com\testesunitarios\model\UserModel.class
+com\testesunitarios\model\RentModel.class
+com\testesunitarios\service\RentService.class
+com\testesunitarios\model\MovieModel.class
+com\testesunitarios\TestesUnitariosApplication.class
