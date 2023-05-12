@@ -65,4 +65,26 @@ public class LocadoraServiceTest {
             Assert.fail(e.getMessage());
         }
     }
+
+    @Test
+    public void locadoraDescontoFilme() {
+
+        try {
+            var cliente = new ClienteModel("Marcus Túlio", "zMarcust.st@gmail.com", "00.111.222-33", "85 91111-2222");
+            var avatar = new FilmeModel("Avatar", BigDecimal.valueOf(30.00));
+            var starWars1 = new FilmeModel("Star Wars1", BigDecimal.valueOf(50.00));
+            var starWars2 = new FilmeModel("Star Wars2", BigDecimal.valueOf(70.00));
+
+            List<FilmeModel> filmeList = new ArrayList<>();
+            filmeList.add(avatar);
+            filmeList.add(starWars1);
+            filmeList.add(starWars2);
+
+            var locacao = service.alugarFilme(cliente, filmeList);
+            System.out.println(locacao.getFilmeModel().get(2).getValor());
+            locacao.setNomeAtendente("Julio");
+        } catch (LocadoraException e) {
+            Assert.fail(e.getMessage());
+        }
+    }
 }

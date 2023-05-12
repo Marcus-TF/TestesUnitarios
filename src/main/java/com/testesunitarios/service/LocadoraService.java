@@ -23,10 +23,34 @@ public class LocadoraService {
         }
 
         for (int i = 0; i < filmeList.size(); i++) {
+            if (filmeList.size() == 3) {
+                locadora.setDesconto(0.25);
+                BigDecimal valorFinal = locadora.getFilmeModel().get(i).getValor().multiply(BigDecimal.valueOf(locadora.getDesconto()));
+                filmeList.get(i).setValor(valorFinal);
+
+            } else if (filmeList.size() == 4) {
+                locadora.setDesconto(0.5);
+                BigDecimal valorFinal = locadora.getFilmeModel().get(i).getValor().multiply(BigDecimal.valueOf(locadora.getDesconto()));
+                filmeList.get(i).setValor(valorFinal);
+            } else if (filmeList.size() == 5) {
+                locadora.setDesconto(0.75);
+                BigDecimal valorFinal = locadora.getFilmeModel().get(i).getValor().multiply(BigDecimal.valueOf(locadora.getDesconto()));
+                filmeList.get(i).setValor(valorFinal);
+            } else if (filmeList.size() == 6) {
+                locadora.setDesconto(0.0);
+                BigDecimal valorFinal = locadora.getFilmeModel().get(i).getValor().multiply(BigDecimal.valueOf(locadora.getDesconto()));
+                filmeList.get(i).setValor(valorFinal);
+            } else {
+                locadora.setDesconto(1.0);
+            }
+        }
+
+        for (int i = 0; i < filmeList.size(); i++) {
             if (filmeList.get(i).getValor() == null || filmeList.get(i).getValor() == BigDecimal.valueOf(0)) {
                 throw new LocadoraException("Filme informado não possui valor!");
             }
         }
+
 
         locadora.setDataLocacao(LocalDate.now());
         locadora.setDataRetorno(LocalDate.now().plusDays(7));

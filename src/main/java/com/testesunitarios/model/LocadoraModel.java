@@ -19,4 +19,6 @@ public class LocadoraModel {
     private ClienteModel clienteModel;
 
     private List<FilmeModel> filmeModel;
+
+    private Double desconto;
 }
