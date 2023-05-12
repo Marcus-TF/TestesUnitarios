@@ -7,18 +7,25 @@ import com.testesunitarios.model.LocadoraModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class LocadoraService {
 
-    public LocadoraModel alugarFilme(ClienteModel cliente, FilmeModel filme) {
+    public LocadoraModel alugarFilme(ClienteModel cliente, List<FilmeModel> filmeList) {
 
         var locadora = new LocadoraModel();
         locadora.setClienteModel(cliente);
-        locadora.setFilmeModel(filme);
+        locadora.setFilmeModel(filmeList);
 
-        if (Objects.isNull(filme.getValor()) || filme.getValor().equals(BigDecimal.valueOf(0))) {
-            throw new LocadoraException("Valor do filme nulo!");
+        if (Objects.isNull(filmeList) || filmeList.isEmpty()) {
+            throw new LocadoraException("Filme nulo!");
+        }
+
+        for (int i = 0; i < filmeList.size(); i++) {
+            if (filmeList.get(i).getValor() == null || filmeList.get(i).getValor() == BigDecimal.valueOf(0)) {
+                throw new LocadoraException("Filme informado não possui valor!");
+            }
         }
 
         locadora.setDataLocacao(LocalDate.now());

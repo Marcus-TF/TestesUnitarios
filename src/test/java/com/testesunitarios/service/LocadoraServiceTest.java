@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocadoraServiceTest {
 
@@ -24,16 +26,24 @@ public class LocadoraServiceTest {
 
         var cliente = new ClienteModel("Marcus Túlio", "zMarcust.st@gmail.com", "00.111.222-33", "85 91111-2222");
 
-        var filme = new FilmeModel("Avatar", BigDecimal.valueOf(39.99));
+        var avatar = new FilmeModel("Avatar", BigDecimal.valueOf(39.99));
+        var starWars = new FilmeModel("Star Wars", BigDecimal.valueOf(89.99));
 
-        var locacao = service.alugarFilme(cliente, filme);
+        List<FilmeModel> filmeList = new ArrayList<>();
+        filmeList.add(avatar);
+        filmeList.add(starWars);
+
+
+        var locacao = service.alugarFilme(cliente, filmeList);
         locacao.setNomeAtendente("Julio");
 
         Assert.assertTrue("Marcus Túlio".equalsIgnoreCase(cliente.getNome()));
-        Assert.assertTrue("Verificando se os valores são iguais passando o equals..", locacao.getFilmeModel().getValor().equals(BigDecimal.valueOf(39.99)));
-        Assert.assertEquals("Verificando se os valores são iguais com 2 argumentos.", locacao.getFilmeModel().getValor(), BigDecimal.valueOf(39.99));
-        Assert.assertEquals("Verificando se os valores são iguais com 2 argumentos.", locacao.getDataLocacao(), LocalDate.now());
-        Assert.assertEquals("Verificando se os valores são iguais com 2 argumentos.", locacao.getDataRetorno(), LocalDate.now().plusDays(7));
+        for (int i = 0; i < filmeList.size(); i++) {
+            Assert.assertTrue("Valores diferentes.", locacao.getFilmeModel().get(i).getValor().equals(locacao.getFilmeModel().get(i).getValor()));
+            Assert.assertEquals("Valores diferentes.", locacao.getFilmeModel().get(i).getValor(), locacao.getFilmeModel().get(i).getValor());
+        }
+        Assert.assertEquals("Data de locação não coincidem!.", locacao.getDataLocacao(), LocalDate.now());
+        Assert.assertEquals("Data de retorno não coincidem!", locacao.getDataRetorno(), LocalDate.now().plusDays(7));
     }
 
     @Test
@@ -41,8 +51,14 @@ public class LocadoraServiceTest {
 
         try {
             var cliente = new ClienteModel("Marcus Túlio", "zMarcust.st@gmail.com", "00.111.222-33", "85 91111-2222");
-            var filme = new FilmeModel("Avatar", BigDecimal.valueOf(0));
-            var locacao = service.alugarFilme(cliente, filme);
+            var avatar = new FilmeModel("Avatar", BigDecimal.valueOf(39.99));
+            var starWars = new FilmeModel("Star Wars", BigDecimal.valueOf(89.99));
+
+            List<FilmeModel> filmeList = new ArrayList<>();
+            filmeList.add(avatar);
+            filmeList.add(starWars);
+
+            var locacao = service.alugarFilme(cliente, filmeList);
             locacao.setNomeAtendente("Julio");
 
         } catch (LocadoraException e) {
