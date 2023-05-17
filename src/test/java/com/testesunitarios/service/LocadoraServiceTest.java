@@ -3,6 +3,7 @@ package com.testesunitarios.service;
 import com.testesunitarios.exception.LocadoraException;
 import com.testesunitarios.model.ClienteModel;
 import com.testesunitarios.model.FilmeModel;
+import com.testesunitarios.model.LocadoraModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,6 +25,8 @@ public class LocadoraServiceTest {
 
   private FilmeModel harryPotter;
 
+  private LocadoraModel rentalCompany;
+
   private List<FilmeModel> filmList = new ArrayList<>();
 
   @Before
@@ -31,28 +34,27 @@ public class LocadoraServiceTest {
     service = new LocadoraService();
     cliente = new ClienteModel("Marcus Túlio", "zMarcust.st@gmail.com", "00.111.222-33",
         "85 91111-2222");
+    filmList = new ArrayList<>();
     avatar = new FilmeModel("Avatar", BigDecimal.valueOf(39.99));
     starWars = new FilmeModel("Star Wars", BigDecimal.valueOf(89.99));
     harryPotter = new FilmeModel("Harry Potter e o Prisioneiro de Azkaban",
         BigDecimal.valueOf(100.00));
-    filmList = new ArrayList<>();
     filmList.add(avatar);
     filmList.add(starWars);
     filmList.add(harryPotter);
+    rentalCompany = new LocadoraModel("Júlio", LocalDate.now(), LocalDate.now().plusDays(7),
+        cliente, filmList, 1.0);
+
+
   }
 
   @Test
   public void rentalCompanyInfoValidation() {
 
-    List<FilmeModel> filmeList = new ArrayList<>();
-    filmeList.add(avatar);
-    filmeList.add(starWars);
-
-    var locacao = service.alugarFilme(cliente, filmeList);
-    locacao.setNomeAtendente("Julio");
+    var locacao = service.alugarFilme(cliente, filmList);
 
     Assert.assertTrue("Marcus Túlio".equalsIgnoreCase(cliente.getNome()));
-    for (int i = 0; i < filmeList.size(); i++) {
+    for (int i = 0; i < filmList.size(); i++) {
       Assert.assertTrue("Valores diferentes.", locacao.getFilmeModel().get(i).getValor()
           .equals(locacao.getFilmeModel().get(i).getValor()));
       Assert.assertEquals("Valores diferentes.", locacao.getFilmeModel().get(i).getValor(),
@@ -67,27 +69,19 @@ public class LocadoraServiceTest {
   @Test
   public void rentalCompanyFilmeNotNull() {
 
-    try {
+    List<FilmeModel> filmeListTest = new ArrayList<>();
 
-      var locacao = service.alugarFilme(cliente, filmList);
-      locacao.setNomeAtendente("Julio");
-
-    } catch (LocadoraException e) {
-      Assert.fail(e.getMessage());
-    }
+    Assertions.assertThrows(LocadoraException.class, () -> {
+      service.alugarFilme(cliente, filmeListTest);
+    });
   }
 
   @Test
   public void rentalCompanyFilmDiscountBasedOnQuantity() {
 
-    try {
-
-      var locacao = service.alugarFilme(cliente, filmList);
-      System.out.println(locacao.getFilmeModel().get(2).getValor());
-      locacao.setNomeAtendente("Julio");
-    } catch (LocadoraException e) {
-      Assert.fail(e.getMessage());
-    }
+    Assert.assertEquals("discount not applied!", BigDecimal.valueOf(39.99), filmList.get(0).getValor());
+    Assert.assertEquals("discount not applied!", BigDecimal.valueOf(89.99), filmList.get(1).getValor());
+    Assert.assertEquals("discount not applied!", BigDecimal.valueOf(100.0), filmList.get(2).getValor());
   }
 
   @Test

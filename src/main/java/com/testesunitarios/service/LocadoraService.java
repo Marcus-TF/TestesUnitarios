@@ -17,13 +17,13 @@ public class LocadoraService {
       throw new LocadoraException("Usuário inexistente!");
     }
 
-    var locadora = new LocadoraModel();
-    locadora.setClienteModel(cliente);
-    locadora.setFilmeModel(filmeList);
-
     if (Objects.isNull(filmeList) || filmeList.isEmpty()) {
       throw new LocadoraException("Filme nulo!");
     }
+
+    var locadora = new LocadoraModel();
+    locadora.setClienteModel(cliente);
+    locadora.setFilmeModel(filmeList);
 
     for (int i = 0; i < filmeList.size(); i++) {
       if (filmeList.size() == 3) {
