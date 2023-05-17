@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class FilmeModel {
 
-    private String nome;
+  private String nome;
 
-    private BigDecimal valor;
+  private BigDecimal valor;
 }

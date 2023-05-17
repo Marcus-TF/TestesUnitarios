@@ -11,11 +11,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ClienteModel {
 
-    private String nome;
+  private String nome;
 
-    private String email;
+  private String email;
 
-    private String cpf;
+  private String cpf;
 
-    private String telefone;
+  private String telefone;
 }
